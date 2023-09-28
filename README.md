@@ -7,5 +7,6 @@ This idea did not work so well, so I tried an additional approach in postprocess
 
 ![Снимок экрана 2023-09-28 224208](https://github.com/alinashtork/Nuclei_instance_segmentation_Unet/assets/117568813/989abaf8-5b3a-464c-8add-fb235d4be108)
 ![Снимок экрана 2023-09-28 224150](https://github.com/alinashtork/Nuclei_instance_segmentation_Unet/assets/117568813/4ac30a6a-b115-4adc-a41a-b417506c4e11)
-![Снимок экрана 2023-09-28 224030](https://github.com/alinashtork/Nuclei_instance_segmentation_Unet/assets/117568813/9fdb961c-dab1-42f1-a8aa-3f183defc2a8)
 ![Снимок экрана 2023-09-28 224016](https://github.com/alinashtork/Nuclei_instance_segmentation_Unet/assets/117568813/2aa90c69-2e90-4110-a19d-0307e1d1af68)
+![Снимок экрана 2023-09-28 224030](https://github.com/alinashtork/Nuclei_instance_segmentation_Unet/assets/117568813/9fdb961c-dab1-42f1-a8aa-3f183defc2a8)
+
