@@ -20,45 +20,57 @@ names = os.listdir('/content/gdrive/MyDrive/miscnn_data/data_new2')
 names.sort()
 len(names)
 
-path = '/content/gdrive/MyDrive/miscnn_data/data_new2/'
+path = '/content/gdrive/MyDrive/nucleus_pics_train_semantic/'
 for name in names:
   img_path = path + name
   image = cv2.imread(img_path + '/' + 'segmentation.png', cv2.IMREAD_GRAYSCALE)
-  cv2_imshow(image)
+  print(name)
+  cv2_imshow(image)  
 
   # make contours and masks with contours
   n = image.shape[0]
   m = image.shape[1]
   cnt_to_draw = np.ones([n, m])*255
-
   image.astype(np.uint8)
 
   cnts, hier = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
-  for cnt in cnts:
+  for cnt in cnts:  
     for coords in cnt:
         cnt_to_draw[coords[0][1], coords[0][0]] = 0
 
-    #cv2_imshow(cnt_to_draw)
-    print(name)
     hull = cv2.convexHull(cnt, returnPoints = False)
-
+    
     defects = cv2.convexityDefects(cnt, hull)
     max_defects = []
 
     if defects is None: break
     elif len(defects) < 2: break
 
+    convex_to_draw = np.zeros([n, m])
+    cnts_hull = []
+    for cnt_hull in cnt[hull]:
+      cnts_hull.append([cnt_hull[0][0][0], cnt_hull[0][0][1]])
+    cnts_hull = np.array(cnts_hull)
+    cv2.drawContours(convex_to_draw, [cnts_hull], 0, (255,255,255), 2)
+    #cv2_imshow(convex_to_draw)
+    convex_to_draw = convex_to_draw.astype(np.uint8)
+    cnts_conv, hier_conv = cv2.findContours(convex_to_draw, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
+
+    #if cv2.contourArea(cnt) / cv2.contourArea(cnts_conv[0]) < 0.8:
+    
+    print('defects', defects)
     for i in range(defects.shape[0]):
         s,e,f,d = defects[i,0]
-        max_defects.append(f)
+        max_defects.append(d)
     def_sorted = max_defects.copy()
-    def_sorted.sort()
+    def_sorted.sort(reverse=True)
+    print(def_sorted)
     ind1 = max_defects.index(def_sorted[0])
     ind2 = max_defects.index(def_sorted[1])
-
-    if ind1 > 500 and ind2 > 500:
-
+    print('indices', ind1, ind2)
+    
+    if def_sorted[0] > 300 and def_sorted[1] > 300:
       s1,e1,f1,d1 = defects[ind1,0]
       s2,e2,f2,d2 = defects[ind2,0]
       start = tuple(cnt[f1][0])
